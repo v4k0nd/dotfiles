@@ -4,6 +4,7 @@ winget list  --accept-source-agreements --accept-package-agreements
 # install with winget
 # ESSENTIAL
 winget install KeePassXCTeam.KeePassXC
+winget install Google.Drive
 winget install 7zip.7zip
 winget install Microsoft.PowerShell
 winget install Microsoft.WindowsTerminal
@@ -49,9 +50,15 @@ winget install OBSProject.OBSStudio
 # winget install stnkl.EverythingToolbar
 # winget install Microsoft.MouseandKeyboardCenter  # for overwriting default buttons
 
+# DISTRO'S
 winget install Ubuntu  # store-id: 9PDXGNCFSCZV
 
 # https://github.com/nix-community/NixOS-WSL/releases
 # https://github.com/LGUG2Z/nixos-wsl-starter
+cd $env:USERPROFILE\Downloads
 # curl -O https://github.com/nix-community/NixOS-WSL/releases/download/2311.5.3/nixos-wsl.tar.gz 
-# wsl --import NixOS .\NixOS\ .\nixos-wsl.tar.gz --version 2
+# Invoke-WebRequest -Uri https://github.com/nix-community/NixOS-WSL/releases/download/2311.5.3/nixos-wsl.tar.gz -OutFile nixos-wsl.tar.gz
+Copy-Item -Path .\nixos-wsl.tar.gz -Destination $env:LOCALAPPDATA\Packages
+cd $env:LOCALAPPDATA\Packages
+"Run the below command to import"
+"wsl --import NixOS .\NixOS\ .\nixos-wsl.tar.gz --version 2"
