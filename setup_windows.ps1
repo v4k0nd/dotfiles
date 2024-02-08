@@ -33,7 +33,6 @@ winget install ShareX.ShareX
 winget install Valve.Steam
 winget install Parsec.Parsec
 winget install ZeroTier.ZeroTierOne
-winget install stnkl.EverythingToolbar
 winget install QL-Win.QuickLook
 winget install VMware.WorkstationPro
 winget install OBSProject.OBSStudio
@@ -50,6 +49,12 @@ winget install OBSProject.OBSStudio
 # winget install gpg4win
 # winget install MRidgers.Clink
 # winget install Neovim.Neovim
+# winget install stnkl.EverythingToolbar
 # winget install Microsoft.MouseandKeyboardCenter  # for overwriting default buttons
 
 winget install Ubuntu  # store-id: 9PDXGNCFSCZV
+
+# https://github.com/nix-community/NixOS-WSL/releases
+# https://github.com/LGUG2Z/nixos-wsl-starter
+# curl -O https://github.com/nix-community/NixOS-WSL/releases/download/2311.5.3/nixos-wsl.tar.gz 
+# wsl --import NixOS .\NixOS\ .\nixos-wsl.tar.gz --version 2
