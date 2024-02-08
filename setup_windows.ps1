@@ -1,6 +1,3 @@
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-
 # prompt for accepting EULA
 winget list  --accept-source-agreements --accept-package-agreements
 
