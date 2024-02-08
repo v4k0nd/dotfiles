@@ -23,6 +23,7 @@ winget install WinSCP.WinSCP
 winget install voidtools.Everything
 # NICE TO HAVE
 winget install Discord.Discord
+winget install AntibodySoftware.WizTree
 winget install SublimeHQ.SublimeText.4
 winget install Mozilla.Thunderbird
 winget install SlackTechnologies.Slack
