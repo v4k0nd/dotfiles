@@ -1,5 +1,8 @@
 sudo apt update
 
+# manage dotfiles
+sudo apt install stow
+
 # exa is unmaintained use fork: eza
 # https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu
 sudo mkdir -p /etc/apt/keyrings
