@@ -36,6 +36,9 @@ winget install QL-Win.QuickLook
 winget install VMware.WorkstationPro
 winget install OBSProject.OBSStudio
 
+# PROGRAMMING
+winget install --id MikeFarah.yq
+
 # DEBATING
 # winget install -i Git.Git
 # winget install SourceFoundry.HackFonts

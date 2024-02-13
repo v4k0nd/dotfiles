@@ -13,9 +13,19 @@ sudo apt install -y eza
 # https://github.com/lsd-rs/lsd?tab=readme-ov-file#prerequisites
 # sudo apt install lsd
 
+# https://github.com/junegunn/fzf#installation
+sudo apt install fzf
 # https://github.com/sharkdp/fd?tab=readme-ov-file#installation
 sudo apt install fd-find
 # https://github.com/BurntSushi/ripgrep/blob/master/README.md#installation
 sudo apt install ripgrep
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
 sudo apt install bat
+
+sudo snap install yq
+sudo apt install jless 
+
+
+alias strg='du —ah . | sort —hr | head —n 10'
+alias fman='comgpen —c | fzf | xargs man'
+alias cat='batcat'
