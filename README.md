@@ -1,5 +1,7 @@
 # dotfiles
 
+Get inspired: https://dotfiles.github.io/
+
 Setup for:
 - OS: Windows 11 + WSL2 
 - on WSL:

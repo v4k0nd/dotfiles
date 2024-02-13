@@ -1,8 +1,9 @@
 sudo apt update
 
 # manage dotfiles
-sudo apt install stow
+sudo apt install stow xclip 
 
+# COMMUNITY MAINTAINED
 # exa is unmaintained use fork: eza
 # https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu
 sudo mkdir -p /etc/apt/keyrings
@@ -16,6 +17,19 @@ sudo apt install -y eza
 # https://github.com/lsd-rs/lsd?tab=readme-ov-file#prerequisites
 # sudo apt install lsd
 
+# https://github.com/ajeetdsouza/zoxide
+sudo apt install zoxide
+
+# https://github.com/mikefarah/yq
+sudo add-apt-repository ppa:rmescandon/yq
+sudo apt update
+sudo apt install yq -y
+
+# https://github.com/PaulJuliusMartinez/jless
+# rust toolcahin needed
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# cargo install jless  
+
 # https://github.com/junegunn/fzf#installation
 sudo apt install fzf
 # https://github.com/sharkdp/fd?tab=readme-ov-file#installation
@@ -25,10 +39,9 @@ sudo apt install ripgrep
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
 sudo apt install bat
 
-sudo snap install yq
-sudo apt install jless 
+# 'better' man pages
+# pip3 install tldr
 
-
-alias strg='du —ah . | sort —hr | head —n 10'
-alias fman='comgpen —c | fzf | xargs man'
-alias cat='batcat'
+# stow --adopt -nvt ~ *
+echo "if you make changes, use: \n\n  stow --adopt -v -n -t ~ *\n\nto update your current zshrc \n(delete -n flag to actually run it)"
+echo "setup done"
