@@ -90,6 +90,8 @@ export PATH="/home/krisz/.local/bin:$PATH"
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -129,7 +131,9 @@ alias ll='ls -l@gh --color-scale=all'
 alias cat='batcat --plain --paging=never'
 alias fman='comgpen —c | fzf | xargs man'
 alias strg='du —ah . | sort —hr | head —n 10'
-
+alias python=python3
+alias rm="trash-put"
+alias rml="trash-list"
 eval "$(zoxide init zsh)"
 #fpath=(~/.zfunc $fpath)
 #compinit
