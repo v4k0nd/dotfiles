@@ -82,7 +82,8 @@ plugins=(git
           pipenv # caused trouble
           golang
           rust
-          docker vscode aws nmap
+          docker docker-compose vscode aws nmap
+          fzf 
           zsh-autosuggestions history-substring-search command-not-found zsh-syntax-highlighting zsh-autosuggestions
 )
 
