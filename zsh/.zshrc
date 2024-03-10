@@ -130,8 +130,8 @@ alias ls='eza --icons --group-directories-first'
 alias la='ls -a'
 alias ll='ls -l@gh --color-scale=all'
 alias cat='batcat --plain --paging=never'
-alias fman='comgpen —c | fzf | xargs man'
-alias strg='du —ah . | sort —hr | head —n 10'
+alias fman='comgpen -c | fzf | xargs man'
+alias strg='du -ah . | sort -hr | head -n 10'
 alias python=python3
 alias rmi='rm -i'
 alias del="trash-put"
