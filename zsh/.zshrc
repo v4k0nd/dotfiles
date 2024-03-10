@@ -133,8 +133,9 @@ alias cat='batcat --plain --paging=never'
 alias fman='comgpen —c | fzf | xargs man'
 alias strg='du —ah . | sort —hr | head —n 10'
 alias python=python3
-alias rm="trash-put"
-alias rml="trash-list"
+alias rmi='rm -i'
+alias del="trash-put"
+alias ldel="trash-list"
 eval "$(zoxide init zsh)"
 #fpath=(~/.zfunc $fpath)
 #compinit
