@@ -16,6 +16,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # npm
 sudo apt install npm # needed for neovim
 
+# goland
+sudo apt install golang # needed for yq
+
 # neovim 4 lunarvim
 # sudo apt install -y neovim  # last time this installed 0.6, too old
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
@@ -52,9 +55,10 @@ sudo install lazygit /usr/local/bin
 sudo apt install zoxide
 
 # https://github.com/mikefarah/yq
-sudo add-apt-repository ppa:rmescandon/yq
-sudo apt update
-sudo apt install yq -y
+# sudo add-apt-repository ppa:rmescandon/yq
+# sudo apt update
+# sudo apt install yq -y
+go install github.com/mikefarah/yq/v4@latest
 
 # https://github.com/PaulJuliusMartinez/jless
 # rust toolcahin needed
