@@ -60,6 +60,9 @@ sudo apt install zoxide
 # sudo apt install yq -y
 go install github.com/mikefarah/yq/v4@latest
 
+# https://github.com/Orange-OpenSource/hurl?tab=readme-ov-file#cargo
+cargo install hurl
+
 # https://github.com/PaulJuliusMartinez/jless
 # rust toolcahin needed
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
