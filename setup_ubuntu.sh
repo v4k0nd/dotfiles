@@ -88,6 +88,9 @@ LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.
 # pip3 install tldr
 cargo install tealdeer
 
+# simple terminal ui for docker and docker compose
+go install github.com/jesseduffield/lazydocker@latest
+
 # stow --adopt -nvt ~ *
 echo "if you make changes, use: \n\n  stow --adopt -v -n -t ~ *\n\nto update your current zshrc \n(delete -n flag to actually run it)"
 echo "setup done"
