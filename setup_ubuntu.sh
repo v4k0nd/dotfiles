@@ -12,6 +12,8 @@ sudo apt install -y python3 python3-pip python3-dev
 
 # rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# need to source cargo for the current shell
+. "$HOME/.cargo/env" 
 
 # npm
 sudo apt install npm # needed for neovim
