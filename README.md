@@ -1,5 +1,14 @@
 # dotfiles
 
+Quick run on new machine the `windows` part:
+```ps
+iex (iwr -Uri "https://raw.githubusercontent.com/v4k0nd/dotfiles/main/setup_windows.ps1" -UseBasicParsing).Content
+```
+
+The `ubuntu` part:
+```sh
+```
+
 Get inspired: https://dotfiles.github.io/
 
 Setup for:
