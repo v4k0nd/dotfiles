@@ -16,7 +16,7 @@ winget install Microsoft.PowerToys
 winget install Microsoft.VisualStudioCode
 winget install tailscale.tailscale
 winget install WireGuard.WireGuard
-winget install 'Sysinternals Suite'  # store-id: 9P7KNL5RWT25
+winget install 'Sysinternals Suite' --accept-source-agreements  # store-id: 9P7KNL5RWT25
 winget install File-New-Project.EarTrumpet
 winget install xanderfrangos.twinkletray
 winget install WinSCP.WinSCP
