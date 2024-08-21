@@ -16,10 +16,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . "$HOME/.cargo/env" 
 
 # npm
-sudo apt install npm # needed for neovim
+sudo apt install npm -y  # needed for neovim
 
 # goland
-sudo apt install golang # needed for yq
+sudo apt install golang -y  # needed for yq
 
 # neovim 4 lunarvim
 # sudo apt install -y neovim  # last time this installed 0.6, too old
@@ -80,11 +80,11 @@ sudo apt install fd-find
 # https://github.com/BurntSushi/ripgrep/blob/master/README.md#installation
 sudo apt install ripgrep
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
-sudo apt install bat
+sudo apt install bat -y
 
 # need ripgrep, lazygit before running this
 # https://www.lunarvim.org/docs/installation#release
-LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+yes y | LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
 
 # 'better' man pages
 # pip3 install tldr
@@ -92,6 +92,12 @@ cargo install tealdeer
 
 # simple terminal ui for docker and docker compose
 go install github.com/jesseduffield/lazydocker@latest
+
+# setup oh-my-zsh plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+
 
 # stow --adopt -nvt ~ *
 echo "if you make changes, use: \n\n  stow --adopt -v -n -t ~ *\n\nto update your current zshrc \n(delete -n flag to actually run it)"
