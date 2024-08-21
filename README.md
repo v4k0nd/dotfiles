@@ -7,6 +7,7 @@ iex (iwr -Uri "https://raw.githubusercontent.com/v4k0nd/dotfiles/main/setup_wind
 
 The `ubuntu` part:
 ```sh
+bash <(curl -s https://raw.githubusercontent.com/v4k0nd/dotfiles/main/setup_ubuntu.sh)
 ```
 
 Get inspired: https://dotfiles.github.io/
