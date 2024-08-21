@@ -11,7 +11,7 @@ sudo apt install -y stow \
 sudo apt install -y python3 python3-pip python3-dev
 
 # rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 # need to source cargo for the current shell
 . "$HOME/.cargo/env" 
 
