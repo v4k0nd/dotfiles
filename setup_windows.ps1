@@ -60,8 +60,8 @@ winget install Ubuntu --accept-source-agreements  # store-id: 9PDXGNCFSCZV
 # https://github.com/nix-community/NixOS-WSL/releases
 # https://github.com/LGUG2Z/nixos-wsl-starter
 cd $env:USERPROFILE\Downloads
-curl -LO https://github.com/nix-community/NixOS-WSL/releases/download/2311.5.3/nixos-wsl.tar.gz
-# Invoke-WebRequest -Uri https://github.com/nix-community/NixOS-WSL/releases/download/2311.5.3/nixos-wsl.tar.gz -OutFile nixos-wsl.tar.gz
+curl -LO https://github.com/nix-community/NixOS-WSL/releases/download/2405.5.4/nixos-wsl.tar.gz
+
 Copy-Item -Path .\nixos-wsl.tar.gz -Destination $env:LOCALAPPDATA\Packages
 cd $env:LOCALAPPDATA\Packages
 "Run the below command to import"
