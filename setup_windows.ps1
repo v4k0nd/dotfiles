@@ -55,6 +55,8 @@ winget install --id MikeFarah.yq
 # winget install Microsoft.MouseandKeyboardCenter  # for overwriting default buttons
 
 # DISTRO'S
+"running:  wsl --install"
+wsl --install
 winget install Ubuntu --accept-source-agreements  # store-id: 9PDXGNCFSCZV
 
 # https://github.com/nix-community/NixOS-WSL/releases
@@ -66,4 +68,4 @@ Copy-Item -Path .\nixos-wsl.tar.gz -Destination $env:LOCALAPPDATA\Packages
 cd $env:LOCALAPPDATA\Packages
 "Run the below command to import"
 "wsl --import NixOS .\NixOS\ .\nixos-wsl.tar.gz --version 2"
-"run:  wsl --install"
+
