@@ -55,7 +55,7 @@ winget install --id MikeFarah.yq
 # winget install Microsoft.MouseandKeyboardCenter  # for overwriting default buttons
 
 # DISTRO'S
-winget install Ubuntu  # store-id: 9PDXGNCFSCZV
+winget install Ubuntu --accept-source-agreements  # store-id: 9PDXGNCFSCZV
 
 # https://github.com/nix-community/NixOS-WSL/releases
 # https://github.com/LGUG2Z/nixos-wsl-starter
