@@ -1,5 +1,5 @@
 # prompt for accepting EULA
-winget list  --accept-source-agreements --accept-package-agreements
+winget list  --accept-source-agreements  # --accept-package-agreements
 
 # install with winget
 # ESSENTIAL
