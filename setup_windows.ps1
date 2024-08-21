@@ -66,3 +66,4 @@ Copy-Item -Path .\nixos-wsl.tar.gz -Destination $env:LOCALAPPDATA\Packages
 cd $env:LOCALAPPDATA\Packages
 "Run the below command to import"
 "wsl --import NixOS .\NixOS\ .\nixos-wsl.tar.gz --version 2"
+"run:  wsl --install"
