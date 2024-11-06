@@ -1,43 +1,84 @@
+# Set execution policy
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+
+# Winget arguments
+$wingetArgs = "--accept-package-agreements --accept-source-agreements"
+
 # prompt for accepting EULA
 winget list  --accept-source-agreements  # --accept-package-agreements
 
-# install with winget
-# ESSENTIAL
-winget install KeePassXCTeam.KeePassXC
-winget install Google.Drive
-winget install 7zip.7zip
-winget install Microsoft.PowerShell
-winget install Microsoft.WindowsTerminal
-winget install Google.Chrome
-winget install Mozilla.Firefox
-winget install Docker.DockerDesktop
-winget install VideoLAN.VLC
-winget install Microsoft.PowerToys
-winget install Microsoft.VisualStudioCode
-winget install tailscale.tailscale
-winget install WireGuard.WireGuard
 winget install 'Sysinternals Suite' --accept-source-agreements  # store-id: 9P7KNL5RWT25
-winget install File-New-Project.EarTrumpet
-winget install xanderfrangos.twinkletray
-winget install WinSCP.WinSCP
-winget install voidtools.Everything
-# NICE TO HAVE
-winget install Discord.Discord
-winget install AntibodySoftware.WizTree
-winget install SublimeHQ.SublimeText.4
-winget install Mozilla.Thunderbird
-winget install SlackTechnologies.Slack
-winget install Notion.Notion
-winget install ShareX.ShareX
-winget install Valve.Steam
-winget install Parsec.Parsec
-winget install ZeroTier.ZeroTierOne
-winget install QL-Win.QuickLook
-winget install VMware.WorkstationPro
-winget install OBSProject.OBSStudio
 
-# PROGRAMMING
-winget install --id MikeFarah.yq
+# Essential packages
+$essentialPackages = @(
+    'KeePassXCTeam.KeePassXC',
+    'Google.Drive',
+    '7zip.7zip',
+    'Microsoft.PowerShell',
+    'Microsoft.WindowsTerminal',
+    'Google.Chrome',
+    'Mozilla.Firefox',
+    'Docker.DockerDesktop',
+    'VideoLAN.VLC',
+    'Microsoft.PowerToys',
+    'Microsoft.VisualStudioCode',
+    'tailscale.tailscale',
+    'WireGuard.WireGuard',
+    'File-New-Project.EarTrumpet',
+    'xanderfrangos.twinkletray',
+    'WinSCP.WinSCP',
+    'voidtools.Everything'
+)
+
+# Nice-to-have packages
+$niceToHavePackages = @(
+    'Discord.Discord',
+    'AntibodySoftware.WizTree',
+    'SublimeHQ.SublimeText.4',
+    'Mozilla.Thunderbird',
+    'SlackTechnologies.Slack',
+    'Notion.Notion',
+    'ShareX.ShareX',
+    'Valve.Steam',
+    'Parsec.Parsec',
+    'ZeroTier.ZeroTierOne',
+    'QL-Win.QuickLook',
+    # 'VMware.WorkstationPro',
+    'OBSProject.OBSStudio'
+    'Microsoft.SysinternalsSuite'
+)
+
+# Programming packages
+$programmingPackages = @(
+    'MikeFarah.yq',
+    'JesseDuffield.lazygit'
+)
+
+# Function to install packages
+function Install-Packages {
+    param (
+        [string[]]$packages
+    )
+    foreach ($package in $packages) {
+        Write-Host "Installing $package..."
+        Try {
+            winget install $wingetArgs --id $package -e -h
+            Write-Host "Installed $package successfully."
+        } Catch {
+            Write-Host "Failed to install $package: $_"
+            Add-Content -Path install_errors.log -Value "Failed to install $package: $_"
+        }
+    }
+}
+
+# Install essential applications
+Install-Packages -packages $essentialPackages
+
+# Install nice-to-have applications
+Install-Packages -packages $niceToHavePackages
+
+# Install programming tools
+Install-Packages -packages $programmingPackages
 
 # DEBATING
 # winget install -i Git.Git
