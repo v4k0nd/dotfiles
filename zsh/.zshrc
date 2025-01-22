@@ -130,6 +130,11 @@ alias ls='eza --icons --group-directories-first'
 alias la='ls -a'
 alias ll='ls -l@gh --color-scale=all'
 alias cat='batcat --plain --paging=never'
+
+# autoload -Uz compinit && compinit  # making autoload cached saves ~400ms
+autoload -Uz compinit
+compinit -d ~/.zsh/.zcompdump-$ZSH_VERSION -C
+fpath=(~/.zsh/completions $fpath)
 alias fman='comgpen -c | fzf | xargs man'
 alias strg='du -ah . | sort -hr | head -n 10'
 alias python=python3
