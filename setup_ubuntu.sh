@@ -9,11 +9,18 @@ sudo apt update && sudo apt upgrade -y
 # https://github.com/sharkdp/fd?tab=readme-ov-file#installation
 # https://github.com/BurntSushi/ripgrep/blob/master/README.md#installation
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
+
+echo "deb [trusted=yes] https://ppa.ipinfo.net/ /" | sudo tee "/etc/apt/sources.list.d/ipinfo.ppa.list"
+sudo apt update
+
 sudo apt install -y \
                 stow xclip trash-cli btop \
                 python3 python3-pip python3-dev \
                 zoxide fzf fd-find ripgrep bat \
-                build-essential curl wget git jq
+                build-essential curl wget git jq \
+                ipinfo
+
+ipinfo completion install
 
 # PROGRAMMING
 

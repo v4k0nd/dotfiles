@@ -51,7 +51,8 @@ $niceToHavePackages = @(
 # Programming packages
 $programmingPackages = @(
     'MikeFarah.yq',
-    'JesseDuffield.lazygit'
+    'JesseDuffield.lazygit',
+    'ipinfo.ipinfo'
 )
 
 # Function to install packages
