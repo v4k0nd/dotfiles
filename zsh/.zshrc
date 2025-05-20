@@ -144,3 +144,4 @@ alias ldel="trash-list"
 eval "$(zoxide init zsh)"
 #fpath=(~/.zfunc $fpath)
 #compinit
+eval "$(starship init zsh)"

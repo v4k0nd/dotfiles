@@ -31,6 +31,9 @@ echo 'source "$HOME/.cargo/env"' >> ~/.zshrc
 # need to source cargo for the current shell
 source "$HOME/.cargo/env"
 
+# setup prompt
+curl -sS https://starship.rs/install.sh | sh
+cp zsh/starship.toml ~/.config/starship.toml
 
 # goland
 # sudo apt install golang -y  # needed for yq
