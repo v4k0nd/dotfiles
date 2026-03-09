@@ -15,7 +15,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -83,8 +84,8 @@ plugins=(git
           golang
           rust
           docker docker-compose vscode aws nmap
-          fzf 
-          zsh-autosuggestions history-substring-search command-not-found zsh-syntax-highlighting zsh-autosuggestions
+          fzf
+          zsh-autosuggestions history-substring-search command-not-found zsh-syntax-highlighting
 )
 
 export PATH="/home/krisz/.local/bin:$PATH"
@@ -95,7 +96,6 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 
 
 source $ZSH/oh-my-zsh.sh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -131,10 +131,10 @@ alias la='ls -a'
 alias ll='ls -l@gh --color-scale=all'
 alias cat='batcat --plain --paging=never'
 
+fpath=(~/.zsh/completions $fpath)
 # autoload -Uz compinit && compinit  # making autoload cached saves ~400ms
 autoload -Uz compinit
 compinit -d ~/.zsh/.zcompdump-$ZSH_VERSION -C
-fpath=(~/.zsh/completions $fpath)
 alias fman='comgpen -c | fzf | xargs man'
 alias strg='du -ah . | sort -hr | head -n 10'
 alias python=python3
@@ -142,6 +142,16 @@ alias rmi='rm -i'
 alias del="trash-put"
 alias ldel="trash-list"
 eval "$(zoxide init zsh)"
-#fpath=(~/.zfunc $fpath)
-#compinit
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# M2_HOME='/opt/apache-maven-3.9.7'
+# PATH="$M2_HOME/bin:$PATH"
 eval "$(starship init zsh)"
+autoload -U +X bashcompinit && bashcompinit
+complete -o default -C /usr/local/bin/ipinfo ipinfo
+export PIPENV_IGNORE_VIRTUALENVS=1
+export PATH="$HOME/.pipenv-venv/bin:$PATH"
