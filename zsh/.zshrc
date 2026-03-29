@@ -143,6 +143,66 @@ alias del="trash-put"
 alias ldel="trash-list"
 eval "$(zoxide init zsh)"
 
+# ── LLM clipboard helpers ──────────────────────────────────────────
+
+# YouTube transcript to clipboard
+ytt() {
+  if [ -z "$1" ]; then
+    echo "Usage: ytt <youtube-url>"
+    return 1
+  fi
+  if ! command -v yt-dlp &>/dev/null; then
+    echo "Error: yt-dlp not found. Install with: pip install yt-dlp"
+    return 1
+  fi
+  rm -f /tmp/ytt_sub*
+  echo "Downloading subtitles..."
+  yt-dlp --write-auto-sub --sub-lang "en-orig,en" --skip-download --sub-format json3 -o "/tmp/ytt_sub" "$1"
+  local subfile=$(ls /tmp/ytt_sub*.json3 2>/dev/null | head -1)
+  if [ -z "$subfile" ]; then
+    echo "Error: No subtitle file found."
+    echo "  - Video may have no captions"
+    echo "  - yt-dlp may be outdated (run: yt-dlp -U)"
+    echo "  - Debug: yt-dlp --list-subs \"$1\""
+    return 1
+  fi
+  python3 -c "
+import json, sys
+with open('$subfile') as f:
+    j = json.load(f)
+seen = set()
+lines = []
+for e in j.get('events', []):
+    text = ''.join(s.get('utf8','') for s in e.get('segs',[])).strip()
+    if text and text not in seen:
+        seen.add(text)
+        lines.append(text)
+if not lines:
+    print('Warning: subtitle file was empty', file=sys.stderr)
+    sys.exit(1)
+print(' '.join(lines))
+" | clip.exe
+  if [ $? -eq 0 ]; then
+    echo "Transcript copied. ($(wc -c < "$subfile") bytes)"
+  else
+    echo "Error: Failed to parse or copy. Are you in WSL?"
+    return 1
+  fi
+}
+
+# Directory tree to clipboard
+lt() {
+  tree -a --charset ascii -I 'node_modules|.git|__pycache__|.venv|dist' -L "${1:-2}" | clip.exe
+  echo "Directory tree copied."
+}
+
+# Single file to clipboard with code fence
+cf() {
+  if [ -z "$1" ]; then echo "Usage: cf <file>"; return 1; fi
+  printf '```%s\n%s\n```' "$1" "$(cat "$1")" | clip.exe
+  echo "Copied $1 ($(wc -l < "$1") lines)"
+}
+
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
@@ -155,3 +215,5 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o default -C /usr/local/bin/ipinfo ipinfo
 export PIPENV_IGNORE_VIRTUALENVS=1
 export PATH="$HOME/.pipenv-venv/bin:$PATH"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
