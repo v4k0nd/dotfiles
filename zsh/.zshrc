@@ -79,8 +79,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
-          python pip pyenv virtualenv
-          pipenv # caused trouble
           golang
           rust
           docker docker-compose vscode aws nmap
@@ -146,24 +144,14 @@ eval "$(zoxide init zsh)"
 # ── LLM clipboard helpers ──────────────────────────────────────────
 
 # YouTube transcript to clipboard
-ytt() {
-  if [ -z "$1" ]; then
-    echo "Usage: ytt <youtube-url>"
-    return 1
-  fi
-  if ! command -v yt-dlp &>/dev/null; then
-    echo "Error: yt-dlp not found. Install with: pip install yt-dlp"
-    return 1
-  fi
+# Shared: extract transcript to stdout
+_ytt_extract() {
+  if [ -z "$1" ]; then return 1; fi
   rm -f /tmp/ytt_sub*
-  echo "Downloading subtitles..."
-  yt-dlp --write-auto-sub --sub-lang "en-orig,en" --skip-download --sub-format json3 -o "/tmp/ytt_sub" "$1"
+  yt-dlp --write-auto-sub --sub-lang "en-orig,en" --skip-download --sub-format json3 -o "/tmp/ytt_sub" "$1" 2>/dev/null
   local subfile=$(ls /tmp/ytt_sub*.json3 2>/dev/null | head -1)
   if [ -z "$subfile" ]; then
-    echo "Error: No subtitle file found."
-    echo "  - Video may have no captions"
-    echo "  - yt-dlp may be outdated (run: yt-dlp -U)"
-    echo "  - Debug: yt-dlp --list-subs \"$1\""
+    echo "Error: No subtitles found. Run: yt-dlp --list-subs \"$1\"" >&2
     return 1
   fi
   python3 -c "
@@ -178,16 +166,29 @@ for e in j.get('events', []):
         seen.add(text)
         lines.append(text)
 if not lines:
-    print('Warning: subtitle file was empty', file=sys.stderr)
     sys.exit(1)
 print(' '.join(lines))
-" | clip.exe
-  if [ $? -eq 0 ]; then
-    echo "Transcript copied. ($(wc -c < "$subfile") bytes)"
-  else
-    echo "Error: Failed to parse or copy. Are you in WSL?"
+"
+}
+
+# Copy transcript to clipboard
+ytt() {
+  if [ -z "$1" ]; then echo "Usage: ytt <youtube-url>"; return 1; fi
+  if ! command -v yt-dlp &>/dev/null; then echo "Error: yt-dlp not found (pip install yt-dlp)"; return 1; fi
+  echo "Downloading subtitles..."
+  _ytt_extract "$1" | clip.exe && echo "Transcript copied to clipboard." || echo "Failed."
+}
+
+# Send transcript to Claude CLI
+ytt-claude() {
+  if [ -z "$1" ]; then
+    echo "Usage: ytt-claude <youtube-url> [prompt]"
     return 1
   fi
+  if ! command -v yt-dlp &>/dev/null; then echo "Error: yt-dlp not found"; return 1; fi
+  if ! command -v claude &>/dev/null; then echo "Error: claude cli not found"; return 1; fi
+  echo "Downloading subtitles..."
+  _ytt_extract "$1" | claude -p "${2:-Summarize this transcript}"
 }
 
 # Directory tree to clipboard
@@ -203,17 +204,10 @@ cf() {
   echo "Copied $1 ($(wc -l < "$1") lines)"
 }
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # M2_HOME='/opt/apache-maven-3.9.7'
 # PATH="$M2_HOME/bin:$PATH"
 eval "$(starship init zsh)"
 autoload -U +X bashcompinit && bashcompinit
 complete -o default -C /usr/local/bin/ipinfo ipinfo
-export PIPENV_IGNORE_VIRTUALENVS=1
-export PATH="$HOME/.pipenv-venv/bin:$PATH"
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
