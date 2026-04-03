@@ -1,0 +1,117 @@
+#!/bin/bash
+set -e
+
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Install Homebrew if not present
+if ! command -v brew &>/dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+brew update && brew upgrade
+
+# CLI essentials
+# https://github.com/ajeetdsouza/zoxide
+# https://github.com/junegunn/fzf
+# https://github.com/sharkdp/fd
+# https://github.com/BurntSushi/ripgrep
+# https://github.com/sharkdp/bat
+# https://github.com/eza-community/eza
+brew install \
+    stow \
+    btop \
+    zoxide fzf fd ripgrep bat \
+    eza \
+    jq yq \
+    git curl wget \
+    lazygit lazydocker \
+    ipinfo \
+    hurl \
+    tealdeer
+
+# PROGRAMMING
+
+# Rust
+if ! command -v rustup &>/dev/null; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source "$HOME/.cargo/env"
+fi
+
+# Go
+brew install go
+
+# Neovim (latest)
+brew install neovim
+
+# LunarVim
+# https://www.lunarvim.org/docs/installation
+LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh)
+
+# Starship prompt
+# https://starship.rs
+brew install starship
+
+# APPS (brew cask — equivalent to winget essentials)
+brew install --cask \
+    ghostty \
+    keepassxc \
+    google-drive \
+    docker \
+    vlc \
+    visual-studio-code \
+    tailscale \
+    parsec
+
+# Nice-to-have
+brew install --cask \
+    alt-tab \
+    rectangle
+
+# DOTFILES
+
+echo "Linking dotfiles..."
+
+link() {
+    local src="$1"
+    local dest="$2"
+    mkdir -p "$(dirname "$dest")"
+    if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+        echo "  ↩︎  Backing up $dest → $dest.bak"
+        mv "$dest" "$dest.bak"
+    fi
+    ln -sf "$src" "$dest"
+    echo "  ✓  $dest"
+}
+
+link "$DOTFILES_DIR/zsh/.zshrc"        "$HOME/.zshrc"
+link "$DOTFILES_DIR/zsh/starship.toml" "$HOME/.config/starship.toml"
+link "$DOTFILES_DIR/ghostty/config"    "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+
+# OH MY ZSH
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+fi
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+fi
+
+if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+fi
+
+# ipinfo shell completion
+ipinfo completion install
+
+brew cleanup
+
+echo "setup done — restart terminal or run: source ~/.zshrc"
